@@ -47,27 +47,41 @@ docker-compose version &> /tmp/z
 DCinst=`grep -wc version /tmp/z`
 if test $DCinst -eq 0
 then
-    echo " docker-compose -  needs to be installed!"
-    echo " on ubuntu Execute: "
-    echo "              apt install docker-compose"
     echo "  "
-    echo " or similar to install on current platform.  "
-    EX=1
+    echo " docker-compose -  needs to be installed!"
+    echo "  "
+      read -p " Would you like to install now? Type 'y' => " ANS
+
+case $ANS in
+y|Y)
+  echo "Installing docker-compose..."
+  apt install docker-compose
+;;
+*)
+    echo "  "
+  echo "  You have choosen not to install docker-compose at this time."
+  echo "  This package can not execute without it"
+    echo "  "
+   EX=1
+;;
+esac
 fi
 #
-docker version &> /tmp/z 
-DCk=`grep -wc version /tmp/z`
-if test $DCk -eq 0
-then
-    echo "  "
-    echo " docker  -  needs to be installed!"
-    echo " on ubuntu Execute: "
-    echo "              apt install docker.io"
-    echo "  "
-    echo " or similar to install on current platform.  "
-    echo "  "
-    EX=1
-fi
+#  THIS SECTION APPEARS REDUNTANT AS docker-compose INSTALLS docker
+#  Commented out..
+# docker version &> /tmp/z 
+#DCk=`grep -wc version /tmp/z`
+#if test $DCk -eq 0
+#then
+#    echo "  "
+#    echo " docker  -  needs to be installed!"
+#    echo " on ubuntu Execute: "
+#    echo "              apt install docker.io"
+#    echo "  "
+#    echo " or similar to install on current platform.  "
+#    echo "  "
+#    EX=1
+#fi
 #
 # check for ssh-keygen
 #
@@ -76,14 +90,23 @@ KG=`cat /tmp/z | wc -l`
 if test $KG -eq 0
 then
     echo "  "
-    echo " openssh  -  needs to be installed!"
-    echo " on ubuntu Execute: "
-    echo "              apt install openssh-server"
+    echo " openssh-server  -  needs to be installed!"
     echo "  "
-    echo " or similar to install on current platform.  "
-    echo "  "
-    EX=1
+      read -p " Would you like to install now? Type 'y' => " ANS
 
+case $ANS in
+y|Y)
+  echo "Installing openssh-serice..."
+  apt install openssh-server 
+;;
+*)
+    echo "  "
+  echo "  You have choosen not to install openssh at this time."
+  echo "  This package can not execute without it"
+    echo "  "
+   EX=1
+;;
+esac
 fi
 #
 ###################
@@ -264,25 +287,28 @@ Tfly=`cat /tmp/z | wc -l`
          echo " "
          echo " #################################################"
          echo " "
-         echo "    Concourse appears to be running"
+         echo "    Concourse appears to be running !"
          echo " "
+         echo " ################"
          echo "    DOCKERENV files created. "
          echo "        Containing ENV you might need"
          echo "         =>  source DOCKERENV"
          echo " "
-         echo "  binary 'fly' installed ... "
+         echo " ################"
+         echo "  The binary 'fly' installed ... "
+         echo " To test:"
          echo "        run:  fly -t tutorial login -c http://${CIP}"
          echo " uname: concourse "
          echo " passwd: changeme "
          echo " "
-         echo "  And attempt to connect to site remote via browser"
+         echo " ################"
+         echo "  Attempt to connect to site remote via browser"
          echo " "
          echo "     http://${CIP}:8080 "
          echo " "
          echo "  and login using information above"
          echo " "
-         echo " "
-         echo "   *** BEST OF LUCK *** "
+         #echo "   *** BEST OF LUCK *** "
          echo " "
          echo " #################################################"
          echo " "
