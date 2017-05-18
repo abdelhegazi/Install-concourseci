@@ -297,7 +297,7 @@ Tfly=`cat /tmp/z | wc -l`
          echo " ################"
          echo "  The binary 'fly' installed ... "
          echo " To test:"
-         echo "        run:  fly -t tutorial login -c http://${CIP}"
+         echo "        run:  fly -t tutorial login -c http://${CIP}:8080"
          echo " uname: concourse "
          echo " passwd: changeme "
          echo " "
