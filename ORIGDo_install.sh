@@ -6,16 +6,6 @@
 #
 # Vars
 #
-# Collect IP for concourse upfront
-UCIP=$1
-if [ ${UCIP}X = "X" ]
-then
-     FOO=0 
-else
-    echo "Using $UCIP as concourse IP"
-    FOO=1
-   CIP=`echo $UCIP`
-fi
 ########
 #
  UDCYML=USEdocker-compose.yml
@@ -175,15 +165,10 @@ else
     echo "  "
 fi
 #
-if test $FOO -eq 0
-then
  echo "  "
  echo "  Please input the IP-address to be used to connect with	"
  echo "  the concourse web interface (i.e.  192.168.22.22) "
    read -p '=> ' CIP 
-else
-    CIP=`echo $UCIP`
-fi
 
   if [ ${CIP}X = 'X' ]
   then
