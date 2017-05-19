@@ -65,7 +65,7 @@ then
 case $ANS in
 y|Y)
   echo "Installing docker-compose..."
-  apt install docker-compose
+  apt-get install docker-compose
 ;;
 *)
     echo "  "
@@ -102,19 +102,19 @@ then
     echo "  "
     echo " openssh-server  -  needs to be installed!"
     echo "  "
-      read -p " Would you like to install now? Type 'y' => " ANS
+      read -p " Would you like to NOT install now? Type 'y' => " ANS
 
 case $ANS in
 y|Y)
-  echo "Installing openssh-serice..."
-  apt install openssh-server 
-;;
-*)
     echo "  "
   echo "  You have choosen not to install openssh at this time."
   echo "  This package can not execute without it"
     echo "  "
    EX=1
+;;
+*)
+  echo "Installing openssh-serice..."
+  apt install openssh-server 
 ;;
 esac
 fi
